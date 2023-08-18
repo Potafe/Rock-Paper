@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Page Title</title>
+</head>
+<body>
+	<script>
+		x = 0; /*player*/
+		y = 0; /*computer*/
+		
+		function getComputerChoice() {
+			// 0 = rock, 1 = paper, 2 = scissor
+			return Math.floor(Math.random() * 3);	
+		}
+		function playRockPaper (playerSelection, computerSelection) {
+			if (playerSelection.toLowerCase() == "rock" && computerSelection == 0){
+				alert("Its a Draw");
+			}
+			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 2) {
+				alert("Its a Draw");
+			}
+			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 1) {
+				alert("Its a Draw");
+			}
+			else if (playerSelection.toLowerCase() == "rock" && computerSelection == 1) {
+				alert("You Lose!");
+				y++;
+			}
+			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 2) {
+				alert("You Lose!");
+				y++;
+			}
+			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 0) {
+				alert("You Lose!");
+				y++;
+			}
+			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 0) {
+				alert("You Win!");
+				x++;
+			}
+			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 1) {
+				alert("You Win!");
+				x++;
+			}
+			else if (playerSelection.toLowerCase() == "rock" && computerSelection == 2) {
+				alert("You Win!");
+				x++;
+			}	
+			else {
+				alert("Invalid choice");
+			}
+		} 
+		game();
+		function game() {
+			for (let i = 0; i < 5; i++) {
+				gamePlay();
+			}
+			if (x > y) {
+				console.log("Your score = " + x);
+				console.log("Computer score = " + y);
+				console.log("You are the Winner :)");
+			}
+			else if (x < y) {
+				console.log("Your score = " + x);
+				console.log("Computer score = " + y);
+				console.log("You Lost :(");
+			}
+			else {
+				console.log("Your score = " + x);
+				console.log("Computer score = " + y);
+				console.log("It's a draw");
+			}
+		}
+		function gamePlay() {
+			player = prompt("Rock, Paper or Scissor");
+			computer = getComputerChoice();
+			playRockPaper(player, computer);
+		}
+	</script>
+</body>
+</html>
