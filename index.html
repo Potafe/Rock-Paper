@@ -5,77 +5,91 @@
 	<title>Page Title</title>
 </head>
 <body>
+	<div class = "resulter"></div>
+	<button class = "button", id = "Rock">Rock</button>
+	<button class = "button", id = "Scissor">Scissor</button>
+	<button class = "button", id = "Paper">Paper</button>
+	<div class = "logger"></div>
 	<script>
-		x = 0; /*player*/
-		y = 0; /*computer*/
-		
+		const logger = document.querySelector('.logger');
+		const resulter = document.querySelector('.resulter');
+		playerCount = 0;
+		compCount = 0;
+		matchCount = 0;
+
+		const button = document.querySelectorAll('button');
+		button.forEach(button => button.addEventListener('click', ()=> {
+			playRockPaper(button.id, getComputerChoice());
+			if (playerCount == 5) {
+				winner();
+				playerCount == 0;
+				compCount == 0;
+			}
+			else if (compCount == 5) {
+				winner();
+				playerCount == 0;
+				compCount == 0;
+			}
+  		}));
+
+		const myArray = ["Rock", "Paper", "Scissor"];
 		function getComputerChoice() {
 			// 0 = rock, 1 = paper, 2 = scissor
-			return Math.floor(Math.random() * 3);	
+			return myArray[~~(Math.random() * myArray.length)];	
 		}
 		function playRockPaper (playerSelection, computerSelection) {
-			if (playerSelection.toLowerCase() == "rock" && computerSelection == 0){
-				alert("Its a Draw");
+			playerSelection = playerSelection.toLowerCase();
+			computerSelection = computerSelection.toLowerCase();
+			if (playerSelection == computerSelection){
+				result("It's a Draw");
 			}
-			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 2) {
-				alert("Its a Draw");
+			else if (playerSelection == "rock" && computerSelection == "paper") {
+				result("Computer wins the round");
+				compCount++;
 			}
-			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 1) {
-				alert("Its a Draw");
+			else if (playerSelection == "paper" && computerSelection == "scissor") {
+				result("Computer wins the round");
+				compCount++;
 			}
-			else if (playerSelection.toLowerCase() == "rock" && computerSelection == 1) {
-				alert("You Lose!");
-				y++;
+			else if (playerSelection == "scissor" && computerSelection == "rock") {
+				result("Computer wins the round");
+				compCount++;
 			}
-			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 2) {
-				alert("You Lose!");
-				y++;
+			else if (playerSelection == "paper" && computerSelection == "rock") {
+				result("Player wins the round");
+				playerCount++;
 			}
-			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 0) {
-				alert("You Lose!");
-				y++;
+			else if (playerSelection == "scissor" && computerSelection == "paper") {
+				result("Player wins the round");
+				playerCount++;
 			}
-			else if (playerSelection.toLowerCase() == "paper" && computerSelection == 0) {
-				alert("You Win!");
-				x++;
-			}
-			else if (playerSelection.toLowerCase() == "scissor" && computerSelection == 1) {
-				alert("You Win!");
-				x++;
-			}
-			else if (playerSelection.toLowerCase() == "rock" && computerSelection == 2) {
-				alert("You Win!");
-				x++;
+			else if (playerSelection == "rock" && computerSelection == "scissor") {
+				result("Player wins the round");
+				playerCount++;
 			}	
 			else {
-				alert("Invalid choice");
+				console.log("Invalid choice");
 			}
+			matchCount++;
 		} 
-		game();
-		function game() {
-			for (let i = 0; i < 5; i++) {
-				gamePlay();
-			}
-			if (x > y) {
-				console.log("Your score = " + x);
-				console.log("Computer score = " + y);
-				console.log("You are the Winner :)");
-			}
-			else if (x < y) {
-				console.log("Your score = " + x);
-				console.log("Computer score = " + y);
-				console.log("You Lost :(");
-			}
-			else {
-				console.log("Your score = " + x);
-				console.log("Computer score = " + y);
-				console.log("It's a draw");
-			}
+		
+		function result(string) {
+			logger.textContent = string;
 		}
-		function gamePlay() {
-			player = prompt("Rock, Paper or Scissor");
-			computer = getComputerChoice();
-			playRockPaper(player, computer);
+		
+		function winner() {
+			if (playerCount == 5) {
+				resulter.textContent = "Player is the Winner!";
+			} 
+			else if (compCount == 5) {
+				resulter.textContent = "Player Lost :()";
+			}  
+		}
+	
+		function resetGame() {
+			matchCount == 0;
+			playerCount == 0;
+			compCount == 0;
 		}
 	</script>
 </body>
